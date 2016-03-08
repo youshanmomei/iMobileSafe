@@ -1,12 +1,11 @@
 package com.huaiying.imobilesafe.util;
 
-import java.util.List;
-
 import android.app.ActivityManager;
-import android.app.ActivityManager.RunningServiceInfo;
 import android.app.Service;
 import android.content.ComponentName;
 import android.content.Context;
+
+import java.util.List;
 
 public class ServiceStateUtils {
 
@@ -20,14 +19,10 @@ public class ServiceStateUtils {
 	public static boolean isRunging(Context context,
 			Class<? extends Service> clazz) {
 
-		ActivityManager am = (ActivityManager) context
-				.getSystemService(Context.ACTIVITY_SERVICE);
+		ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+		List<ActivityManager.RunningServiceInfo> list = am.getRunningServices(Integer.MAX_VALUE);
 
-		List<RunningServiceInfo> list = am
-				.getRunningServices(Integer.MAX_VALUE);
-
-		for (RunningServiceInfo info : list) {
-
+		for (ActivityManager.RunningServiceInfo info : list) {
 			ComponentName service = info.service;
 			String className = service.getClassName();
 			if (className.equals(clazz.getName())) {

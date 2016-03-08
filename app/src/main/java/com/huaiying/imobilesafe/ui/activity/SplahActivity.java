@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -16,16 +17,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.huaiying.imobilesafe.R;
+import com.huaiying.imobilesafe.service.ProtectedService;
 import com.huaiying.imobilesafe.util.Constants;
+import com.huaiying.imobilesafe.util.GZipUtils;
 import com.huaiying.imobilesafe.util.Logger;
 import com.huaiying.imobilesafe.util.PackageUtils;
+import com.huaiying.imobilesafe.util.ServiceStateUtils;
 import com.huaiying.imobilesafe.util.SharePreferenceUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Closeable;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -91,18 +98,18 @@ public class SplahActivity extends Activity {
         }
 
         //拷贝解压号码归属地数据库
-//        copyAddressDB();
+        copyAddressDB();
 
         //拷贝常用号码
-//        copyCommonNumberDB();
+        copyCommonNumberDB();
 
         //拷贝病毒数据库
-//        copyVirusDB();
+        copyVirusDB();
 
         //开启必要的服务
-/*        if(!ServiceStateUtils.isRunging(this, ProtectedService.class)) {
+        if(!ServiceStateUtils.isRunging(this, ProtectedService.class)) {
             startService(new Intent(this, ProtectedService.class));
-        }*/
+        }
 
         boolean flag = SharePreferenceUtils.getBoolean(this, Constants.HAS_SHORTCUT);
         if(!flag){
@@ -128,13 +135,150 @@ public class SplahActivity extends Activity {
 
     }
 
+    private void copyVirusDB() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                File destFile = new File(getFilesDir(), "antivirus.db");
+                if (!destFile.exists()) {
+                    Logger.d(TAG,"antivirus.db数据库不存在，需要拷贝");
+                    //拷贝
+                    AssetManager assets = getAssets();
+                    InputStream is = null;
+                    FileOutputStream fos = null;
+                    try {
+                        is = assets.open("antivirus.db");
+                        fos = new FileOutputStream(destFile);
+
+                        byte[] buffer = new byte[1024];
+                        int len = -1;
+                        while ((len = is.read(buffer)) != -1) {
+                            fos.write(buffer, 0, len);
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } finally {
+                        close(is);
+                        close(fos);
+                    }
+                }else{
+                    Logger.d(TAG,"antivirus.db数据库存在，不需要拷贝");
+                }
+
+            }
+        }).start();
+    }
+
+    private void copyCommonNumberDB() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                File destFile = new File(getFilesDir(), "commonnum.db");
+                if (!destFile.exists()) {
+                    Logger.d(TAG, "commonnum数据库不存在需要拷贝");
+                    //拷贝
+                    AssetManager assets = getAssets();
+                    InputStream is = null;
+                    FileOutputStream fos = null;
+                    try {
+                        is = assets.open("commonnum.db");
+                        fos = new FileOutputStream(destFile);
+
+                        byte[] buffer = new byte[1024];
+                        int len = -1;
+                        while ((len = is.read(buffer)) != -1) {
+                            fos.write(buffer, 0, len);
+                        }
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } finally {
+                        close(is);
+                        close(fos);
+                    }
+                } else {
+                    Logger.d(TAG, "commonnum数据库已存在不需要拷贝");
+                }
+            }
+        }).start();
+    }
+
     private void copyAddressDB() {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                File dessFile = new File(getFilesDir(), "address.db");
+                if (!dessFile.exists()) {
+                    Logger.d(TAG, "数据库不存在，需要拷贝");
+                    copyAndunZipAddressDB2();
+                } else {
+                    Logger.d(TAG, "数据库已经存在，不需要拷贝");
+                }
 
             }
+
+            private void copyAndunZipAddressDB2(){
+                AssetManager assets = getAssets();
+                InputStream is = null;
+                FileOutputStream os = null;
+                File destFile = new File(getFilesDir(), "address.db");
+                try {
+                    is = assets.open("address.zip");
+                    os = new FileOutputStream(destFile);
+                    GZipUtils.unzip(is, os);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            private void copyAndunZipAddressDB1(){
+                //1.拷贝文件
+                AssetManager assets = getAssets();
+                File destFile = new File(getFilesDir(), "address.zip");
+
+                InputStream is = null;
+                FileOutputStream fos = null;
+                try {
+                    is = assets.open("address.zip");
+                    fos = new FileOutputStream(destFile);
+
+                    byte[] buffer = new byte[1024];
+                    int len = -1;
+                    while((len = is.read(buffer)) != -1){
+                        fos.write(buffer, 0, len);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    close(is);
+                    close(fos);
+                }
+
+                //2.解压文件
+                File zipFile = new File(getFilesDir(), "address.zip");
+                File targetFile = new File(getFilesDir(), "address.db");
+                try {
+                    GZipUtils.unzip(zipFile, targetFile);
+
+                    //删除zip文件
+                    zipFile.delete();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }).start();
+    }
+
+    private void close(Closeable io) {
+        if (io != null) {
+            try {
+                io.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            io = null;
+        }
     }
 
     private void load2Home(){
