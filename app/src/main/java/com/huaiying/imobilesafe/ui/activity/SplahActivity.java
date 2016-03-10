@@ -288,7 +288,7 @@ public class SplahActivity extends Activity {
                 String name = Thread.currentThread().getName();
                 Logger.d(TAG, "name:" + name);
 
-                Intent intent = new Intent(SplahActivity.this, MainActivity.class);
+                Intent intent = new Intent(SplahActivity.this, HomeActivity.class);
                 startActivity(intent);
 
                 finish();
