@@ -264,9 +264,9 @@ public class HomeActivity extends Activity implements AdapterView.OnItemClickLis
         //1.引导页面
         //2.最终页面
         if (flag) {
-            //TODO 如果用户开启了 放到保护 --》最终页面
+            //如果用户开启了 放到保护 --》最终页面
             Logger.d(TAG, "进入最终页面");
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, LostFindActivity.class));
         }else{
             //TODO 否则进入引导界面
             Logger.d(TAG, "进入引导界面");

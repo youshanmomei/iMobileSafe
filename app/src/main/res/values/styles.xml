@@ -8,4 +8,30 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="TitleBarStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:background">@color/global_blue</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="NormalTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#aa000000</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="SetupItemTextStyle" parent="@style/NormalTextStyle">
+        <item name="android:textSize">15sp</item>
+        <item name="android:layout_marginLeft">15dp</item>
+        <item name="android:layout_marginTop">3dp</item>
+        <item name="android:drawableLeft">@mipmap/dialog_title_default_icon</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:drawablePadding">3dp</item>
+    </style>
+
+
 </resources>

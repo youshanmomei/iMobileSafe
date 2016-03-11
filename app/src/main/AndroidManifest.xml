@@ -16,7 +16,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activity.MainActivity" />
-        <activity android:name=".ui.activity.HomeActivity"></activity>
+        <activity android:name=".ui.activity.HomeActivity" />
+        <activity android:name=".ui.activity.LostFindActivity"></activity>
     </application>
 
 </manifest>
