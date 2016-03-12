@@ -33,5 +33,42 @@
         <item name="android:drawablePadding">3dp</item>
     </style>
 
+    <style name="SetupTitleStyle" parent="TitleBarStyle">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">5dp</item>
+    </style>
+
+    <style name="SetupTextStyle" parent="@style/NormalTextStyle">
+        <item name="android:layout_margin">5dp</item>
+    </style>
+
+    <style name="SetupBtnNextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:background">@drawable/btn_primary_selector</item>
+        <item name="android:drawableRight">@mipmap/next</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:text">下一步</item>
+        <item name="android:onClick">clickNext</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="SetupBtnPreStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:background">@drawable/btn_primary_selector</item>
+        <item name="android:drawableRight">@mipmap/pre</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:text">上一步</item>
+        <item name="android:onClick">clickPre</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
 
 </resources>
