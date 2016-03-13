@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.huaiying.imobilesafe">
 
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,7 +20,9 @@
         <activity android:name=".ui.activity.MainActivity" />
         <activity android:name=".ui.activity.HomeActivity" />
         <activity android:name=".ui.activity.LostFindActivity" />
-        <activity android:name=".ui.activity.LostSetup1Activity"></activity>
+        <activity android:name=".ui.activity.LostSetup1Activity" />
+        <activity android:name=".ui.activity.CallSmsSafeActivity" />
+        <activity android:name=".ui.activity.LostSetup2Activity"></activity>
     </application>
 
 </manifest>

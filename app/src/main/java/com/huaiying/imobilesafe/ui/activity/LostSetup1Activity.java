@@ -12,8 +12,6 @@ public class LostSetup1Activity extends BaseSetupActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lost_setup1);
-
-
     }
 
     @Override
@@ -23,7 +21,7 @@ public class LostSetup1Activity extends BaseSetupActivity {
 
     @Override
     protected boolean performNext() {
-        startActivity(new Intent(this, MainActivity.class));
+        startActivity(new Intent(this, LostSetup2Activity.class));
         return false;
     }
 }

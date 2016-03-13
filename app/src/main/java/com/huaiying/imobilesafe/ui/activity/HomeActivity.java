@@ -268,7 +268,7 @@ public class HomeActivity extends Activity implements AdapterView.OnItemClickLis
             Logger.d(TAG, "进入最终页面");
             startActivity(new Intent(this, LostFindActivity.class));
         }else{
-            //TODO 否则进入引导界面
+            // 否则进入引导界面
             Logger.d(TAG, "进入引导界面");
             startActivity(new Intent(this, LostSetup1Activity.class));
         }
