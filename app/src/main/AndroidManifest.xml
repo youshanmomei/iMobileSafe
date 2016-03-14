@@ -3,6 +3,7 @@
     package="com.huaiying.imobilesafe">
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
         android:allowBackup="true"
@@ -22,7 +23,9 @@
         <activity android:name=".ui.activity.LostFindActivity" />
         <activity android:name=".ui.activity.LostSetup1Activity" />
         <activity android:name=".ui.activity.CallSmsSafeActivity" />
-        <activity android:name=".ui.activity.LostSetup2Activity"></activity>
+        <activity android:name=".ui.activity.LostSetup2Activity" />
+        <activity android:name=".ui.activity.LostSetup3Activity" />
+        <activity android:name=".ui.activity.ContactSelectedActivity2"></activity>
     </application>
 
 </manifest>

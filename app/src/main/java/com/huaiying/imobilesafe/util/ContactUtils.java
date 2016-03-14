@@ -16,16 +16,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ContactUtils {
-	
-	public static List<ContactInfo> getAllPhone(Context context) {
 
+	public static List<ContactInfo> getAllPhone(Context context) {
 		ContentResolver resolver = context.getContentResolver();
 		Uri uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
 
-		String[] projection = new String[] {
-				ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,// 用户名
+		String[] projection = new String[]{
+				ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME, //ussername
 				ContactsContract.CommonDataKinds.Phone.NUMBER,
-				ContactsContract.CommonDataKinds.Phone.CONTACT_ID };
+				ContactsContract.CommonDataKinds.Phone.CONTACT_ID
+		};
 
 		Cursor cursor = resolver.query(uri, projection, null, null, null);
 
@@ -49,19 +49,18 @@ public class ContactUtils {
 		return list;
 	}
 
-	public static Bitmap getContactIcon(Context context, long contactId) {
+	public static Bitmap getContactIcon(Context context, long contactId){
 
-		// content://contacts/101
+		//content://contacts/101
 		ContentResolver cr = context.getContentResolver();
-		Uri contactUri = Uri.withAppendedPath(
-				ContactsContract.Contacts.CONTENT_URI, contactId + "");
+		Uri contactUri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_URI, contactId + "");
 		InputStream is = null;
+
 		try {
-			is = ContactsContract.Contacts.openContactPhotoInputStream(cr,
-					contactUri);
+			is = ContactsContract.Contacts.openContactPhotoInputStream(cr, contactUri);
 			Bitmap bitmap = BitmapFactory.decodeStream(is);
 			return bitmap;
-		} finally {
+		}finally {
 			if (is != null) {
 				try {
 					is.close();
@@ -73,20 +72,22 @@ public class ContactUtils {
 		}
 	}
 
-	public static Cursor getAllPhoneCursor(Context context) {
+
+	public static Cursor getAllPhoneCursor(Context context){
 		ContentResolver resolver = context.getContentResolver();
 		Uri uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
 
-		String[] projection = new String[] {
+		String[] projection = new String[]{
 				ContactsContract.CommonDataKinds.Phone._ID,
-				ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,// 用户名
+				ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
 				ContactsContract.CommonDataKinds.Phone.NUMBER,
-				ContactsContract.CommonDataKinds.Phone.CONTACT_ID };
+				ContactsContract.CommonDataKinds.Phone.CONTACT_ID
+		};
 
 		return resolver.query(uri, projection, null, null, null);
 	}
 
-	public static ContactInfo getContactInfo(Cursor cursor) {
+	public static ContactInfo getContactInfo(Cursor cursor){
 
 		String name = cursor.getString(1);
 		String number = cursor.getString(2);

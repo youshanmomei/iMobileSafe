@@ -85,8 +85,7 @@ public class LostSetup2Activity extends BaseSetupActivity {
 //            return true;
         }
 
-        //TODO LostSetup3Activity
-        startActivity(new Intent(this, MainActivity.class));
+        startActivity(new Intent(this, LostSetup3Activity.class));
 
         return false;
     }
