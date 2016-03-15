@@ -75,8 +75,7 @@ public class LostSetup3Activity extends BaseSetupActivity {
         //record security number
         SharePreferenceUtils.putString(this, Constants.SJFD_NUMBER, number);
 
-        //TODO LostSetup4Activity
-        startActivity(new Intent(this, MainActivity.class));
+        startActivity(new Intent(this, LostSetup4Activity.class));
 
         return false;
     }

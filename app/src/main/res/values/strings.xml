@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">imobileSafe</string>
+    <string name="sample_device_admin_description">手机安全卫士，保护您的数据安全</string>
+    <string name="sample_device_admin">手机安全卫士</string>
 </resources>
