@@ -99,8 +99,7 @@ public class LostSetup4Activity extends BaseSetupActivity {
             return true;
         }
 
-        //TODO LostSetup5
-        startActivity(new Intent(this, MainActivity.class));
+        startActivity(new Intent(this, LostSetup5Activity.class));
         return false;
     }
 }
