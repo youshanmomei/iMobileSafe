@@ -42,7 +42,8 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".ui.activity.LostSetup5Activity"></activity>
+        <activity android:name=".ui.activity.LostSetup5Activity" />
+        <activity android:name=".BlackEditActivity"></activity>
     </application>
 
 </manifest>
