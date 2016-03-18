@@ -134,7 +134,7 @@ public class HomeActivity extends Activity implements AdapterView.OnItemClickLis
     }
 
     private void performCallSmsSafe() {
-        startActivity(new Intent(HomeActivity.this, MainActivity.class));
+        startActivity(new Intent(HomeActivity.this, CallSmsSafeActivity.class));
     }
 
     private void performSjfd() {

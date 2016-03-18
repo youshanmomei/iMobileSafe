@@ -1,5 +1,6 @@
 package com.huaiying.imobilesafe.db;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -24,10 +25,8 @@ public class BlackDao {
     /**
      * query partial data
      *
-     * @param perPageSize
-     *          :the number of data to query
-     * @param index
-     *          :from what location to start query
+     * @param perPageSize :the number of data to query
+     * @param index       :from what location to start query
      * @return
      */
     public List<BlackInfo> findPart(int perPageSize, int index) {
@@ -63,6 +62,7 @@ public class BlackDao {
 
     /**
      * delete number
+     *
      * @param number
      * @return
      */
@@ -70,10 +70,51 @@ public class BlackDao {
         SQLiteDatabase db = mHelper.getWritableDatabase();
 
         String whereClause = BlackListDB.BlackList.COLUMN_NUMBER + "=?";
-        String[] whereArgs = new String[]{ number };
+        String[] whereArgs = new String[]{number};
         int delete = db.delete(BlackListDB.BlackList.TABLE_NAME, whereClause, whereArgs);
         db.close();
 
         return delete != 0;
+    }
+
+    /**
+     * update the type of number interceptor
+     *
+     * @param number
+     * @param type
+     * @return
+     */
+    public boolean update(String number, int type) {
+        SQLiteDatabase db = mHelper.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(BlackListDB.BlackList.COLUMN_TYPE, type);
+        String whereClause = BlackListDB.BlackList.COLUMN_NUMBER + "=?";
+        String[] whereArgs = new String[]{number};
+        int update = db.update(BlackListDB.BlackList.TABLE_NAME, values, whereClause, whereArgs);
+
+        db.close();
+        return update != 0;
+    }
+
+    /**
+     * add number to database
+     *
+     * @param number
+     * @param type
+     * @return
+     */
+    public boolean add(String number, int type) {
+        SQLiteDatabase db = mHelper.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(BlackListDB.BlackList.COLUMN_NUMBER, number);
+        values.put(BlackListDB.BlackList.COLUMN_TYPE, type);
+
+        long insert = db.insert(BlackListDB.BlackList.TABLE_NAME, null, values);
+
+        db.close();
+
+        return insert != -1;
     }
 }

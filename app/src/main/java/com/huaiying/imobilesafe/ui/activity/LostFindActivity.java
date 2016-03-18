@@ -53,7 +53,7 @@ public class LostFindActivity extends Activity {
         mRlSetup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LostFindActivity.this, MainActivity.class));
+                startActivity(new Intent(LostFindActivity.this, LostSetup1Activity.class));
                 overridePendingTransition(R.anim.next_enter, R.anim.next_exit);
                 finish();
             }

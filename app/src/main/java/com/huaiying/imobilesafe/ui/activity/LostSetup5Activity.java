@@ -29,7 +29,7 @@ public class LostSetup5Activity extends BaseSetupActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 //mark whether open anti-theft function
-                SharePreferenceUtils.putBoolean(LostSetup5Activity.this, Constants.SJFD_PASSWORD, isChecked);
+                SharePreferenceUtils.putBoolean(LostSetup5Activity.this, Constants.SJFD_PROTECTING, isChecked);
             }
         });
     }

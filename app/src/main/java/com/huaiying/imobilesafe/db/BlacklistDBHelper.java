@@ -20,7 +20,7 @@ public class BlacklistDBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         //init database
         //create table
-        String sql = BlackListDB.BlackList.SQL_CREATE_TAVLE;
+        String sql = BlackListDB.BlackList.SQL_CREATE_TABLE;
         Logger.d(TAG, "" + sql);
         db.execSQL(sql);
     }

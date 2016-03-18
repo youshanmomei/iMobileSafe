@@ -1,10 +1,12 @@
 package com.huaiying.imobilesafe.ui.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -17,11 +19,13 @@ import com.huaiying.imobilesafe.BlackEditActivity;
 import com.huaiying.imobilesafe.R;
 import com.huaiying.imobilesafe.db.BlackDao;
 import com.huaiying.imobilesafe.db.dao.BlackInfo;
+import com.huaiying.imobilesafe.util.Logger;
 
 import java.util.List;
 
 public class CallSmsSafeActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
+    private static final String TAG = "CallSmsSafeActivity";
     private static final int REQUEST_CODE_ADD = 100;
     private static final int REQUEST_CODE_UPDATE = 101;
     private static final int PAGE_SIZE = 10;
@@ -56,8 +60,76 @@ public class CallSmsSafeActivity extends AppCompatActivity implements AdapterVie
 
         //set click event for item listView
         mListView.setOnItemClickListener(this);
-        
+
         startQuery();
+
+        //monitor listview slide
+        mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                //the sliding state change callback
+                //scrollstate:current state
+                //SCROLL_STATE_IDLE: idle state
+                //SCROLL_STATE_TOUCH_SCROLL: touch scroll state
+                //SCROLL_STATE_FLING: sliding state(惯性滑动)
+
+                //free && want to see the last one
+                //the subscript which the last item can saw
+                int lastVisiblePosition = mListView.getLastVisiblePosition();
+                if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE && lastVisiblePosition == (mDatas.size() - 1)) {
+
+                    //load data
+                    mLlLoading.setVisibility(View.VISIBLE);
+                    new Thread() {
+                        public void run() {
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+
+                            int index = mDatas.size();
+                            List<BlackInfo> list = mDao.findPart(PAGE_SIZE, index);
+
+                            if (list.size() == 0) {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mLlLoading.setVisibility(View.GONE);
+                                        Toast.makeText(getApplicationContext(), "没有更多数据", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                                return;
+                            }
+
+                            //add to current list
+                            mDatas.addAll(list);
+
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mLlLoading.setVisibility(View.GONE);
+
+                                    //update ui
+                                    mAdapter.notifyDataSetChanged();
+                                }
+                            });
+
+                        }
+                    }.start();
+                }
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                //when the callback is slipping
+                //firstVisibleItem: the first visible item position
+                //visibleItemCount: the number of visible
+                //totalItemCount:--List
+                Logger.d(TAG, "onScroll：" + firstVisibleItem + " = " + visibleItemCount);
+            }
+        });
 
 
     }
@@ -66,8 +138,8 @@ public class CallSmsSafeActivity extends AppCompatActivity implements AdapterVie
         mLlLoading.setVisibility(View.VISIBLE);
 
         //open thread to query data
-        new Thread(){
-            public void run(){
+        new Thread() {
+            public void run() {
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
@@ -77,7 +149,7 @@ public class CallSmsSafeActivity extends AppCompatActivity implements AdapterVie
                 //access interface -> net
                 // init List data
                 //mDatas = mDao.findAll();
-               mDatas = mDao.findPart(PAGE_SIZE, 0);
+                mDatas = mDao.findPart(PAGE_SIZE, 0);
 
                 //setting adapter in the main thread
                 runOnUiThread(new Runnable() {
@@ -198,7 +270,7 @@ public class CallSmsSafeActivity extends AppCompatActivity implements AdapterVie
             return convertView;
         }
 
-        class ViewHolder{
+        class ViewHolder {
             TextView tvNumber;
             TextView tvType;
             ImageView ivDelete;
@@ -209,8 +281,8 @@ public class CallSmsSafeActivity extends AppCompatActivity implements AdapterVie
         mLlLoading.setVisibility(View.VISIBLE);
 
         //open thread to query data
-        new Thread(){
-            public void run(){
+        new Thread() {
+            public void run() {
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
@@ -238,5 +310,42 @@ public class CallSmsSafeActivity extends AppCompatActivity implements AdapterVie
                 });
             }
         }.start();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_ADD) {
+            switch (resultCode) {
+                case Activity.RESULT_OK:
+                    //1. to obtain addition data
+                    String number = data.getStringExtra(BlackEditActivity.EXTRA_NUMBEER);
+                    int type = data.getIntExtra(BlackEditActivity.EXTRA_TYPE, -1);
+                    BlackInfo info = new BlackInfo();
+                    info.number = number;
+                    info.type = type;
+                    //2. add data to list
+                    mDatas.add(info);
+                    //3.update adapter
+                    mAdapter.notifyDataSetChanged();
+                    break;
+                default:
+                    break;
+            }
+        } else if (requestCode == REQUEST_CODE_UPDATE) {
+            switch (resultCode) {
+                case Activity.RESULT_OK:
+                    //1. type
+                    int type = data.getIntExtra(BlackEditActivity.EXTRA_TYPE, -1);
+
+                    //mDatas --- a record of a type
+
+                    //2. update adapter
+                    mAdapter.notifyDataSetChanged();
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }
