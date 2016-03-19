@@ -117,4 +117,29 @@ public class BlackDao {
 
         return insert != -1;
     }
+
+    /**
+     * search black number type
+     * @param number
+     * @return
+     */
+    public int findType(String number) {
+        SQLiteDatabase db = mHelper.getReadableDatabase();
+        String sql = "select " + BlackListDB.BlackList.COLUMN_TYPE + " from "
+                + BlackListDB.BlackList.TABLE_NAME + " where "
+                + BlackListDB.BlackList.COLUMN_NUMBER + "?=";
+
+        String[] selectionArgs = new String[]{number};
+
+        Cursor cursor = db.rawQuery(sql, selectionArgs);
+        int type = -1;
+        if (cursor != null) {
+            if (cursor.moveToNext()) {
+                type = cursor.getInt(0);
+            }
+            cursor.close();
+        }
+        db.close();
+        return type;
+    }
 }

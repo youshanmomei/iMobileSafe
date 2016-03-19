@@ -89,11 +89,11 @@ public class HomeActivity extends Activity implements AdapterView.OnItemClickLis
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         switch (position) {
             case 0:
-                //手机防盗
+                //手机防盗 TODO GPSService, SmsProvider, SmsReceiver, SafeAdmnReceiver
                 performSjfd();
                 break;
             case 1:
-                //TODO 骚扰拦截
+                //骚扰拦截 隐式启动方式
                 performCallSmsSafe();
                 break;
             case 2:
