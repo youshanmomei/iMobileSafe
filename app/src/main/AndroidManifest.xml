@@ -42,14 +42,15 @@
             </intent-filter>
         </receiver>
 
-
         <activity android:name=".ui.activity.LostSetup5Activity" />
         <activity android:name=".BlackEditActivity" />
 
         <service
             android:name=".service.CallSmsSafeService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
+
+        <activity android:name=".ui.activity.AppManagerActivity"></activity>
     </application>
 
 </manifest>
