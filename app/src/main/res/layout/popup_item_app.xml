@@ -60,7 +60,7 @@
 
         <TextView
             style="@style/NormalTextStyle"
-            android:text="卸载"
+            android:text="分享"
             android:textSize="14sp" />
 
     </LinearLayout>

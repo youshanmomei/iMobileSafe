@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import com.huaiying.imobilesafe.R;
 import com.huaiying.imobilesafe.bean.AppInfo;
+import com.huaiying.imobilesafe.engine.AppInfoProvider;
 import com.huaiying.imobilesafe.ui.view.ProgressDesView;
 import com.huaiying.imobilesafe.util.Logger;
 
@@ -130,7 +131,7 @@ public class AppManagerActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-//                mDatas = AppInfoProvider.getAllApps(getApplicationContext()); TODO AppInfoProvider
+                mDatas = AppInfoProvider.getAllApps(getApplicationContext());
                 mSystemDatas = new ArrayList<AppInfo>();
                 mUserDatas = new ArrayList<AppInfo>();
 
@@ -277,7 +278,7 @@ public class AppManagerActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         Intent intent = new Intent();
                         intent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
-                        intent.addCategory("android.intent.Category.DEFAULT");
+                        intent.addCategory("android.intent.category.DEFAULT");
                         intent.setData(Uri.parse("package:" + app.packageName));
                         startActivity(intent);
 

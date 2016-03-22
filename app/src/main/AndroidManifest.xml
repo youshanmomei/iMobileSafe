@@ -50,7 +50,8 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".ui.activity.AppManagerActivity"></activity>
+        <activity android:name=".ui.activity.AppManagerActivity" />
+        <activity android:name=".ProcessManagerActivity"></activity>
     </application>
 
 </manifest>

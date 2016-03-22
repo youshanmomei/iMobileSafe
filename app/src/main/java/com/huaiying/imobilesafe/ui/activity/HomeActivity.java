@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.huaiying.imobilesafe.ProcessManagerActivity;
 import com.huaiying.imobilesafe.R;
 import com.huaiying.imobilesafe.bean.HomeItem;
 import com.huaiying.imobilesafe.util.Constants;
@@ -97,7 +98,7 @@ public class HomeActivity extends Activity implements AdapterView.OnItemClickLis
                 performCallSmsSafe();
                 break;
             case 2:
-                //TODO 软件管理
+                //软件管理
                 performAppManager();
                 break;
             case 3:
@@ -126,11 +127,11 @@ public class HomeActivity extends Activity implements AdapterView.OnItemClickLis
     }
 
     private void performProcessManager() {
-        startActivity(new Intent(HomeActivity.this, MainActivity.class));
+        startActivity(new Intent(HomeActivity.this, ProcessManagerActivity.class));
     }
 
     private void performAppManager() {
-        startActivity(new Intent(HomeActivity.this, MainActivity.class));
+        startActivity(new Intent(HomeActivity.this, AppManagerActivity.class));
     }
 
     private void performCallSmsSafe() {
