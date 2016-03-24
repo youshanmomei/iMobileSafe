@@ -51,7 +51,7 @@
             android:exported="true" />
 
         <activity android:name=".ui.activity.AppManagerActivity" />
-        <activity android:name=".ProcessManagerActivity"></activity>
+        <activity android:name=".ui.activity.ProcessManagerActivity"></activity>
     </application>
 
 </manifest>

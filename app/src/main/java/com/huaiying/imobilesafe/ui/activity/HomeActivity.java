@@ -17,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.huaiying.imobilesafe.ProcessManagerActivity;
 import com.huaiying.imobilesafe.R;
 import com.huaiying.imobilesafe.bean.HomeItem;
 import com.huaiying.imobilesafe.util.Constants;

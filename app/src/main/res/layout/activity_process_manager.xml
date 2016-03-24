@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.huaiying.imobilesafe.ProcessManagerActivity">
+    tools:context=".ui.activity.ProcessManagerActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -97,8 +97,22 @@
                     android:layout_margin="8dp"
                     android:text="进程管理设置" />
 
-                <!--TODO org.huaiying.safe.view.SettingItemView
-                org.huaiying.safe.view.SettingItemView-->
+                <com.huaiying.imobilesafe.ui.view.SettingItemView
+                    android:id="@+id/pm_siv_showsystem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    xmln:itbackground="first"
+                    android:clickable="true"
+                    xmln:title="显示系统进程"
+                    />
+
+                <com.huaiying.imobilesafe.ui.view.SettingItemView
+                    android:id="@+id/pm_siv_autoclean"
+                    xmln:itbackground="last"
+                    android:clickable="true"
+                    xmln:title="锁屏自动清理"
+                   android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
 
             </LinearLayout>
 
