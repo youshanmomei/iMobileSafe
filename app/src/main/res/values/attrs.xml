@@ -3,7 +3,7 @@
     <declare-styleable name="SettingItemView">
 
         <!--display different title content-->
-        <attr name="title" format="string" />
+        <attr name="settingItemTitle" format="string" />
 
         <!--setting background-->
         <attr name="itbackground">

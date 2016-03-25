@@ -51,7 +51,12 @@
             android:exported="true" />
 
         <activity android:name=".ui.activity.AppManagerActivity" />
-        <activity android:name=".ui.activity.ProcessManagerActivity"></activity>
+        <activity android:name=".ui.activity.ProcessManagerActivity" />
+
+        <service
+            android:name=".service.AutoCleanService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

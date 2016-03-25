@@ -44,7 +44,7 @@ public class SettingItemView extends RelativeLayout {
         //read the custom attribute
         TypedArray ta = context.obtainStyledAttributes(set, R.styleable.SettingItemView);
 
-        String title = ta.getString(R.styleable.SettingItemView_title);
+        String title = ta.getString(R.styleable.SettingItemView_settingItemTitle);
         int bkg = ta.getInt(R.styleable.SettingItemView_itbackground, 0);
         isToggleEnable = ta.getBoolean(R.styleable.SettingItemView_toggleEnable, isToggleEnable);
 
