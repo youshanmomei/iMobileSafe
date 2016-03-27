@@ -20,7 +20,8 @@
             android:layout_height="48dp"
             android:layout_alignParentRight="true"
             android:onClick="clickClean"
-            android:scaleType="center" />
+            android:scaleType="center"
+            android:src="@drawable/btn_clean_selector" />
     </RelativeLayout>
 
     <!-- progress count -->
@@ -101,18 +102,17 @@
                     android:id="@+id/pm_siv_showsystem"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    xmln:itbackground="first"
                     android:clickable="true"
-                    xmln:title="显示系统进程"
-                    />
+                    xmln:itbackground="first"
+                    xmln:settingItemTitle="显示系统进程" />
 
                 <com.huaiying.imobilesafe.ui.view.SettingItemView
                     android:id="@+id/pm_siv_autoclean"
-                    xmln:itbackground="last"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:clickable="true"
-                    xmln:title="锁屏自动清理"
-                   android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    xmln:itbackground="last"
+                    xmln:settingItemTitle="锁屏自动清理" />
 
             </LinearLayout>
 
@@ -133,8 +133,7 @@
             android:layout_weight="1"
             android:background="@drawable/btn_info_selector"
             android:onClick="clickAll"
-            android:text="全选"
-            />
+            android:text="全选" />
 
         <Button
             android:layout_width="0dp"
@@ -143,8 +142,7 @@
             android:layout_weight="1"
             android:background="@drawable/btn_info_selector"
             android:onClick="clickReverse"
-            android:text="反选"
-            />
+            android:text="反选" />
 
     </LinearLayout>
 

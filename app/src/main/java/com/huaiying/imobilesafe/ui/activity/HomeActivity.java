@@ -101,7 +101,7 @@ public class HomeActivity extends Activity implements AdapterView.OnItemClickLis
                 performAppManager();
                 break;
             case 3:
-                //TODO 进程管理
+                // 进程管理
                 performProcessManager();
                 break;
             case 4:

@@ -219,7 +219,7 @@ public class ProcessProvider {
     }
 
     public static void killProcess(Context context, String packageName){
-        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACCOUNT_SERVICE);
+        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         am.killBackgroundProcesses(packageName);
     }
 
