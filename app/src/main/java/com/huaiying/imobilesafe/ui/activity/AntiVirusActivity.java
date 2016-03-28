@@ -202,7 +202,7 @@ public class AntiVirusActivity extends AppCompatActivity implements View.OnClick
         @Override
         protected void onProgressUpdate(AntiVirusInfo... values) {
             super.onProgressUpdate(values);
-
+            //TODO ...
         }
 
         @Override
