@@ -5,11 +5,14 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -46,6 +49,7 @@ public class AntiVirusActivity extends AppCompatActivity implements View.OnClick
     private ScanTask mTask;
     private List<AntiVirusInfo> mDatas;
     private int mVirusTotal;
+    private AntiVirusAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -201,13 +205,94 @@ public class AntiVirusActivity extends AppCompatActivity implements View.OnClick
 
         @Override
         protected void onProgressUpdate(AntiVirusInfo... values) {
-            super.onProgressUpdate(values);
-            //TODO ...
+//            super.onProgressUpdate(values);
+
+            if (isFinish) {
+                return;
+            }
+
+            AntiVirusInfo info = values[0];
+
+            //change the package name and progress which scaned
+            mTvPackageName.setText(info.packageName);
+            int currentProgress = (int) (progress * 100f / max + 0.5f);
+            mArcProgress.setProgress(currentProgress);
+
+            if (progress == 1) {
+                mAdapter = new AntiVirusAdapter();
+                mListView.setAdapter(mAdapter);
+            } else {
+                mAdapter.notifyDataSetChanged();
+            }
+
+            mListView.smoothScrollToPosition(mAdapter.getCount());
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            //TODO ...
         }
+    }
+
+    private class AntiVirusAdapter extends BaseAdapter{
+
+        @Override
+        public int getCount() {
+            if (mDatas != null) {
+                return mDatas.size();
+            }
+            return 0;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            if (mDatas != null) {
+                return mDatas.get(position);
+            }
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ViewHolder holder;
+
+            if (convertView == null) {
+                convertView = View.inflate(getApplicationContext(), R.layout.item_virus_info, null);
+                holder = new ViewHolder();
+                convertView.setTag(holder);
+
+                holder.ivClean = (ImageView) convertView.findViewById(R.id.item_virusinfo_iv_clean);
+                holder.ivIcon = (ImageView) convertView.findViewById(R.id.item_virusinfo_iv_icon);
+                holder.tvName = (TextView) convertView.findViewById(R.id.item_virusinfo_tv_name);
+                holder.tvVirus = (TextView) convertView.findViewById(R.id.item_virusinfo_tv_virus);
+            } else {
+                holder = (ViewHolder) convertView.getTag();
+            }
+
+            //set data
+            AntiVirusInfo info = mDatas.get(position);
+            holder.ivIcon.setImageDrawable(info.icon);
+            holder.tvName.setText(info.name);
+            holder.tvVirus.setText(info.isVirus ? "病毒" : "安全");
+            holder.tvVirus.setTextColor(info.isVirus ? Color.RED : Color.GREEN);
+            holder.ivClean.setVisibility(info.isVirus?View.VISIBLE:View.GONE);
+
+
+            return convertView;
+        }
+
+    }
+
+    private class ViewHolder {
+        ImageView ivIcon;
+        TextView tvName;
+        TextView tvVirus;
+        ImageView ivClean;
     }
 }
