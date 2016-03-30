@@ -5,7 +5,11 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -230,9 +234,118 @@ public class AntiVirusActivity extends AppCompatActivity implements View.OnClick
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            //TODO ...
+//            super.onPostExecute(aVoid);
+            if (isFinish) {
+                return;
+            }
+
+            //scroll to the top
+            mListView.smoothScrollToPosition(0);
+
+            if (mVirusTotal > 0) {
+                mTvResult.setText("您的手机很不安全");
+                mTvResult.setTextColor(Color.RED);
+            } else {
+                mTvResult.setText("您的手机很安全");
+                mTvResult.setTextColor(Color.WHITE);
+            }
+
+            //in the end, do open animation
+            //1.get the picture of the progress container
+            mRIProgressContainer.setDrawingCacheEnabled(true);
+            mRIProgressContainer.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+            Bitmap bitmap = mRIProgressContainer.getDrawingCache();
+
+            //set picture to the imageview
+            mIvLeft.setImageBitmap(getLeftBitmap(bitmap));
+            mIvRight.setImageBitmap(getRightBitmap(bitmap));
+
+            //show the result, hidden the progress
+            mRIProgressContainer.setVisibility(View.GONE);
+            mLIResultContainer.setVisibility(View.VISIBLE);
+            mLIAnimatorContainer.setVisibility(View.VISIBLE);
+            mLIAnimatorContainer.bringToFront();
+
+            showOpenAnimtor();
+
         }
+    }
+
+    private void showOpenAnimtor() {
+        AnimatorSet set = new AnimatorSet();
+
+        mLIAnimatorContainer.measure(0,0);
+        set.playTogether(
+                ObjectAnimator.ofFloat(mIvLeft, "translationX", 0, -mIvLeft.getMeasuredWidth()),
+                ObjectAnimator.ofFloat(mIvRight, "translationX", 0, mIvRight.getMeasuredWidth()),
+                ObjectAnimator.ofFloat(mIvLeft, "alpha", 1, 0),
+                ObjectAnimator.ofFloat(mIvRight, "alpha", 1, 0),
+                ObjectAnimator.ofFloat(mLIResultContainer, "alpha", 0, 1)
+        );
+        set.setDuration(3000);
+        set.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+                mBtnScan.setEnabled(true);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+
+        set.start();
+    }
+
+    private Bitmap getRightBitmap(Bitmap srcBitmap) {
+        int width = (int) (srcBitmap.getWidth() / 2f + 0.5f);
+        int height = srcBitmap.getHeight();
+        Bitmap destBitmap = Bitmap.createBitmap(width, height, srcBitmap.getConfig());
+
+        Canvas canvas = new Canvas(destBitmap);
+
+        Paint paint = new Paint();
+
+        Matrix matrix = new Matrix();
+        matrix.setTranslate(-width, 0);
+
+        canvas.drawBitmap(srcBitmap, matrix, paint);
+
+        return destBitmap;
+
+    }
+
+    private Bitmap getLeftBitmap(Bitmap srcBitmap) {
+        //1.prepare paper
+        int width = (int) (srcBitmap.getWidth() / 2f + 0.5f);
+        int height = srcBitmap.getHeight();
+        Bitmap destBitmap = Bitmap.createBitmap(width, height, srcBitmap.getConfig());
+
+        //2.prepare canvas, put paper on it
+        Canvas canvas = new Canvas(destBitmap);
+
+        //3.prepare paint
+        Paint paint = new Paint();
+
+        //4.prepare regular
+        Matrix matrix = new Matrix();
+
+        //5.paint
+        canvas.drawBitmap(srcBitmap, matrix, paint);
+
+        return destBitmap;
+
     }
 
     private class AntiVirusAdapter extends BaseAdapter{
