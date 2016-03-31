@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.huaiying.imobilesafe.ui.activity.CommonToolActivity">
+
+    <TextView
+        style="@style/TitleBarStyle"
+        android:text="常用工具" />
+
+    <com.huaiying.imobilesafe.ui.view.SettingItemView
+        android:id="@+id/ct_siv_numberaddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:settingItemTitle="号码归属地查询"
+        app:toggleEnable="false"></com.huaiying.imobilesafe.ui.view.SettingItemView>
+
+    <com.huaiying.imobilesafe.ui.view.SettingItemView
+        android:id="@+id/ct_siv_commonnum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:itbackground="last"
+        app:settingItemTitle="常用号码查询"
+        app:toggleEnable="false"></com.huaiying.imobilesafe.ui.view.SettingItemView>
+
+    <com.huaiying.imobilesafe.ui.view.SettingItemView
+        android:id="@+id/ct_siv_smsbackup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:settingItemTitle="短信备份"
+        app:toggleEnable="false"></com.huaiying.imobilesafe.ui.view.SettingItemView>
+
+    <com.huaiying.imobilesafe.ui.view.SettingItemView
+        android:id="@+id/ct_siv_smsrestorre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:itbackground="last"
+        app:settingItemTitle="短信还原"
+        app:toggleEnable="false"></com.huaiying.imobilesafe.ui.view.SettingItemView>
+
+    <com.huaiying.imobilesafe.ui.view.SettingItemView
+        android:id="@+id/ct_siv_applock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:onClick="clickAppLock"
+        app:settingItemTitle="程序锁管理"
+        app:toggleEnable="false"></com.huaiying.imobilesafe.ui.view.SettingItemView>
+
+    <com.huaiying.imobilesafe.ui.view.SettingItemView
+        android:id="@+id/ct_siv_watchdog1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:itbackground="middle"
+        app:settingItemTitle="开启电子狗服务1"
+        app:toggleEnable="true"></com.huaiying.imobilesafe.ui.view.SettingItemView>
+
+    <com.huaiying.imobilesafe.ui.view.SettingItemView
+        android:id="@+id/ct_siv_watchdog2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:itbackground="last"
+        app:settingItemTitle="开启电子狗2"
+        app:toggleEnable="true"></com.huaiying.imobilesafe.ui.view.SettingItemView>
+
+</LinearLayout>

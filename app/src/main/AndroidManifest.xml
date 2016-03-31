@@ -59,7 +59,9 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".ui.activity.AntiVirusActivity"></activity>
+        <activity android:name=".ui.activity.AntiVirusActivity" />
+        <activity android:name=".ui.activity.CommonToolActivity" />
+        <activity android:name=".ui.activity.NumberAddressQueryActivity"></activity>
     </application>
 
 </manifest>

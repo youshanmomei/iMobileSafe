@@ -105,7 +105,7 @@ public class HomeActivity extends Activity implements AdapterView.OnItemClickLis
                 performProcessManager();
                 break;
             case 4:
-                //TODO 手机杀毒
+                // 手机杀毒
                 performAntiVirus();
                 break;
             case 5:
@@ -118,11 +118,11 @@ public class HomeActivity extends Activity implements AdapterView.OnItemClickLis
     }
 
     private void performCommonTool() {
-        startActivity(new Intent(HomeActivity.this, MainActivity.class));
+        startActivity(new Intent(HomeActivity.this, CommonToolActivity.class));
     }
 
     private void performAntiVirus() {
-        startActivity(new Intent(HomeActivity.this, MainActivity.class));
+        startActivity(new Intent(HomeActivity.this, AntiVirusActivity.class));
     }
 
     private void performProcessManager() {
