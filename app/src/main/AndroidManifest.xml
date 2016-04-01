@@ -61,7 +61,8 @@
 
         <activity android:name=".ui.activity.AntiVirusActivity" />
         <activity android:name=".ui.activity.CommonToolActivity" />
-        <activity android:name=".ui.activity.NumberAddressQueryActivity"></activity>
+        <activity android:name=".ui.activity.NumberAddressQueryActivity" />
+        <activity android:name=".ui.activity.CommonNumberActivity"></activity>
     </application>
 
 </manifest>

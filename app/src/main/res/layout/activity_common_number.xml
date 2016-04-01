@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.huaiying.imobilesafe.ui.activity.CommonNumberActivity">
+
+    <TextView
+        style="@style/TitleBarStyle"
+        android:text="常用号码查询" />
+
+    <ExpandableListView
+        android:id="@+id/cn_listView"
+        android:groupIndicator="@null"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></ExpandableListView>
+
+</LinearLayout>

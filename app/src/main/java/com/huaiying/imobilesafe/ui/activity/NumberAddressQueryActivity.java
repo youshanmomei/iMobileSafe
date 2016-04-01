@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.huaiying.imobilesafe.R;
+import com.huaiying.imobilesafe.db.AddressDao;
 
 public class NumberAddressQueryActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -35,8 +36,8 @@ public class NumberAddressQueryActivity extends AppCompatActivity implements Vie
         mEtNumber.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//                String address = AddressDao.findAddress(getApplicationContext(), s.toString()); TODO AddressDao
-//                mTvAddress.setText("归属地: " + address);
+                String address = AddressDao.findAddress(getApplicationContext(), s.toString());
+                mTvAddress.setText("归属地: " + address);
             }
 
             @Override
@@ -69,7 +70,7 @@ public class NumberAddressQueryActivity extends AppCompatActivity implements Vie
             return;
         }
 
-//        String address = AddressDao.findAddress(this, number);
-//        mTvAddress.setText("归属地：" + address);
+        String address = AddressDao.findAddress(this, number);
+        mTvAddress.setText("归属地：" + address);
     }
 }

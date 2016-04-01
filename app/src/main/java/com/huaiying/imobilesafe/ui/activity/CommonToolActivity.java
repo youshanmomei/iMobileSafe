@@ -10,6 +10,8 @@ import com.huaiying.imobilesafe.ui.view.SettingItemView;
 
 public class CommonToolActivity extends AppCompatActivity {
 
+    private SettingItemView mSivCommonNumber;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,5 +24,14 @@ public class CommonToolActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), NumberAddressQueryActivity.class));
             }
         });
+
+        mSivCommonNumber = (SettingItemView) findViewById(R.id.ct_siv_commonnum);
+        mSivNumberAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), CommonNumberActivity.class));
+            }
+        });
+
     }
 }
