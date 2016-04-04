@@ -3,6 +3,7 @@ package com.huaiying.imobilesafe.ui.activity;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -13,7 +14,6 @@ import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -23,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.lzyzsd.circleprogress.ArcProgress;
 import com.huaiying.imobilesafe.R;
@@ -35,7 +36,7 @@ import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AntiVirusActivity extends AppCompatActivity implements View.OnClickListener {
+public class AntiVirusActivity extends Activity implements View.OnClickListener {
 
     private static final String TAG = "AntiVirusActivity";
     private PackageManager mPm;
@@ -80,11 +81,20 @@ public class AntiVirusActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void startScan() {
+        //open thread sacnning package
+        if (mTask != null) {
+            mTask.stop();
+            mTask = null;
+        }
+
+        mTask = new ScanTask();
+        mTask.execute();
     }
 
     @Override
     public void onClick(View v) {
         if (v == mBtnScan) {
+            Toast.makeText(getApplicationContext(), "~~~~~~~", Toast.LENGTH_SHORT).show();
             mBtnScan.setEnabled(false);
 
             AnimatorSet set = new AnimatorSet();
@@ -95,7 +105,7 @@ public class AntiVirusActivity extends AppCompatActivity implements View.OnClick
                     ObjectAnimator.ofFloat(mIvRight, "alpha", 0, 1),
                     ObjectAnimator.ofFloat(mLIResultContainer, "alpha", 1, 0)
             );
-            set.setDuration(2000);
+            set.setDuration(3000);
 
             set.addListener(new Animator.AnimatorListener() {
                 @Override

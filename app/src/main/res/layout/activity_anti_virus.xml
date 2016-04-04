@@ -31,7 +31,7 @@
                 tools:arc_stroke_width="10dp"
                 tools:arc_suffix_text_padding="3dp"
                 tools:arc_suffix_text_size="22sp"
-                tools:arc_text_color="#fff" />
+                tools:arc_text_color="#ffffff" />
 
             <TextView
                 android:id="@+id/aa_tv_packageName"
@@ -41,7 +41,7 @@
                 android:layout_marginBottom="5dp"
                 android:singleLine="true"
                 android:text="应用的包名"
-                android:textColor="#fff"
+                android:textColor="#ffffff"
                 android:textSize="15sp" />
 
         </RelativeLayout>
