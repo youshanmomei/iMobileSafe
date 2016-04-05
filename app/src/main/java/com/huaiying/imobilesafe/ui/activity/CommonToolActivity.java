@@ -120,4 +120,8 @@ public class CommonToolActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void clickAppLock(View view) {
+        startActivity(new Intent(this, AppLockActivity.class));
+    }
 }
