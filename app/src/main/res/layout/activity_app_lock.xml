@@ -16,7 +16,7 @@
             android:id="@+id/al_scv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"></com.huaiying.imobilesafe.ui.view.SegmentControlView>
+            android:layout_centerInParent="true" />
     </RelativeLayout>
 
     <TextView

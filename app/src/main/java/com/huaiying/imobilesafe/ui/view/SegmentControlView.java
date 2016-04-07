@@ -19,11 +19,11 @@ public class SegmentControlView extends LinearLayout implements View.OnClickList
 
     private OnSelectedListener mListener;
 
-    public SegmentControlView(Context context, AttributeSet attrs) {
-        super(context, null);
+    public SegmentControlView(Context context) {
+        this(context, null);
     }
 
-    public SegmentControlView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public SegmentControlView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         //binding xml
@@ -52,7 +52,7 @@ public class SegmentControlView extends LinearLayout implements View.OnClickList
                     mListener.onSaelected(true);
                 }
             }
-        }else if (v == mTvRight) {
+        } else if (v == mTvRight) {
             if (isLeftSelected) {
                 //if the right side is not selected, click on the right side of the check
                 mTvRight.setSelected(true);
@@ -66,11 +66,11 @@ public class SegmentControlView extends LinearLayout implements View.OnClickList
         }
     }
 
-    public void setOnSelectedListener(OnSelectedListener listener){
+    public void setOnSelectedListener(OnSelectedListener listener) {
         this.mListener = listener;
     }
 
-    public interface OnSelectedListener{
+    public interface OnSelectedListener {
         //selected and not selected
         void onSaelected(boolean isLeftSelected);
     }
