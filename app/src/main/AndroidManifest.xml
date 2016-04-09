@@ -77,7 +77,26 @@
         <activity android:name=".ui.activity.CommonToolActivity" />
         <activity android:name=".ui.activity.NumberAddressQueryActivity" />
         <activity android:name=".ui.activity.CommonNumberActivity" />
-        <activity android:name=".ui.activity.AppLockActivity"></activity>
+        <activity android:name=".ui.activity.AppLockActivity" />
+
+        <service
+            android:name=".service.UpdateWidgetService"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".service.GPSService"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".service.NumberAddressService"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".service.WatchDogService1"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name=".ui.activity.LockScreenActivity"></activity>
     </application>
 
 </manifest>
